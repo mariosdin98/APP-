@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="StoryStream is a TikTok-style discovery app for books and movies with a beautiful animated vertical feed."
+      content="StoryStream is a full discovery app concept for books and movies with accounts, saved lists, and a seeded catalog."
     />
     <title>StoryStream</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,47 +21,134 @@
     <div class="ambient ambient-b"></div>
     <div class="ambient ambient-c"></div>
 
-    <div class="app-shell">
+    <section id="authScreen" class="auth-screen">
+      <div class="auth-panel glass">
+        <div class="auth-copy">
+          <p class="eyebrow">Books + Movies, one addictive feed</p>
+          <h1>StoryStream</h1>
+          <p>
+            Μπες με λογαριασμό, κάνε save τη λίστα σου, και δες μια seeded database γεμάτη βιβλία και
+            ταινίες από fantasy, romance, sci-fi, horror, classics, anime, drama και πολλά ακόμα.
+          </p>
+          <div class="demo-card-grid">
+            <article class="mini-card"><strong>500+</strong><span>demo catalog vibes</span></article>
+            <article class="mini-card"><strong>Auth</strong><span>register / login / session</span></article>
+            <article class="mini-card"><strong>DB</strong><span>seeded local database</span></article>
+          </div>
+        </div>
+
+        <div class="auth-forms glass-soft">
+          <div class="auth-tabs">
+            <button id="loginTab" class="active" type="button">Login</button>
+            <button id="registerTab" type="button">Register</button>
+          </div>
+
+          <form id="loginForm" class="auth-form">
+            <label>
+              Email
+              <input name="email" type="email" placeholder="you@example.com" required />
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" placeholder="••••••••" required />
+            </label>
+            <button class="primary-btn" type="submit">Sign in</button>
+            <p class="helper-text">Demo account: `demo@storystream.app` / `demo1234`</p>
+          </form>
+
+          <form id="registerForm" class="auth-form hidden">
+            <label>
+              Username
+              <input name="username" type="text" placeholder="moviebuff99" required />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" placeholder="you@example.com" required />
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" placeholder="Create a strong password" required />
+            </label>
+            <button class="primary-btn" type="submit">Create account</button>
+          </form>
+
+          <p id="authMessage" class="auth-message" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <div id="appShell" class="app-shell hidden">
       <aside class="sidebar glass">
         <section>
-          <p class="eyebrow">Built for the algorithm era</p>
-          <h1>StoryStream</h1>
+          <div class="sidebar-topline">
+            <div>
+              <p class="eyebrow">Your entertainment operating system</p>
+              <h1>StoryStream</h1>
+            </div>
+            <button id="logoutBtn" class="ghost-btn" type="button">Logout</button>
+          </div>
           <p class="intro">
-            Ένα addictive discovery app για βιβλία και ταινίες με vertical swipe feed, cinematic GIF cards,
-            mood filters, social proof και saves που μένουν αποθηκευμένα.
+            Personalized feed για βιβλία και ταινίες, full seeded database, genres, moods, user lists και
+            γρήγορο adding νέων τίτλων.
           </p>
         </section>
 
-        <section class="sidebar-block spotlight-card">
+        <section class="sidebar-block user-card">
           <div>
-            <p class="eyebrow">Tonight's vibe</p>
-            <strong id="spotlightTitle">Cosmic heartbreak</strong>
-            <p id="spotlightCopy">Scroll σε stories που μοιάζουν με late-night obsessions.</p>
+            <p class="eyebrow">Logged in as</p>
+            <strong id="welcomeName">Demo User</strong>
+            <p id="welcomeMeta">0 saved • 0 custom entries</p>
           </div>
-          <button id="randomizeBtn" class="ghost-btn" type="button">Shuffle mood</button>
+          <div class="profile-badge" id="profileInitial">D</div>
         </section>
 
         <section class="stats-panel" aria-label="StoryStream highlights">
-          <div>
-            <strong id="statSwipes">12M+</strong>
-            <span>weekly swipes</span>
-          </div>
-          <div>
-            <strong id="statSaves">430K</strong>
-            <span>lists created</span>
-          </div>
-          <div>
-            <strong id="statRate">94%</strong>
-            <span>completion rate</span>
-          </div>
+          <div><strong id="statItems">0</strong><span>titles in database</span></div>
+          <div><strong id="statGenres">0</strong><span>genres covered</span></div>
+          <div><strong id="statSaved">0</strong><span>saved by you</span></div>
         </section>
 
         <section class="sidebar-block feature-card">
           <div class="section-heading">
-            <h2>Quick lists</h2>
+            <h2>Your saved list</h2>
             <span id="savedCountBadge">0 saved</span>
           </div>
           <div id="savedPreview" class="saved-preview" aria-live="polite"></div>
+        </section>
+
+        <section class="sidebar-block admin-card">
+          <div class="section-heading">
+            <h2>Add to database</h2>
+            <span>Local DB</span>
+          </div>
+          <form id="addItemForm" class="stack-form">
+            <div class="two-col">
+              <label>
+                Type
+                <select name="type" required>
+                  <option value="Movie">Movie</option>
+                  <option value="Book">Book</option>
+                </select>
+              </label>
+              <label>
+                Genre
+                <input name="genre" type="text" placeholder="Thriller" required />
+              </label>
+            </div>
+            <label>
+              Title
+              <input name="title" type="text" placeholder="Arrival" required />
+            </label>
+            <label>
+              Creator
+              <input name="creator" type="text" placeholder="Denis Villeneuve" required />
+            </label>
+            <label>
+              Description
+              <textarea name="blurb" rows="3" placeholder="Short pitch..." required></textarea>
+            </label>
+            <button class="primary-btn" type="submit">Add title</button>
+          </form>
         </section>
       </aside>
 
@@ -71,44 +158,59 @@
             <div class="brand-dot"></div>
             <div>
               <p>For you</p>
-              <strong id="feedLabel">Trending now</strong>
+              <strong id="feedLabel">Full catalog</strong>
             </div>
           </div>
 
           <div class="toolbar">
             <label class="searchbar" for="searchInput">
               <span>🔎</span>
-              <input id="searchInput" type="search" placeholder="Search title, creator, vibe..." />
+              <input id="searchInput" type="search" placeholder="Search title, creator, genre, vibe..." />
             </label>
-            <button class="profile-btn" type="button" aria-label="Open profile">A</button>
+            <button class="profile-btn" id="openDatabaseBtn" type="button">DB</button>
           </div>
         </header>
 
         <section class="filter-row" aria-label="Feed filters">
           <nav id="categoryNav" class="pill-nav" aria-label="Content categories"></nav>
-          <div id="moodFilters" class="mood-filters" aria-label="Mood filters"></div>
+          <div id="genreFilters" class="mood-filters" aria-label="Genre filters"></div>
         </section>
 
-        <section class="feed-wrap">
-          <div class="feed-progress glass-soft">
+        <section class="dashboard-row">
+          <article class="feed-progress glass-soft">
             <div>
               <span>Now playing</span>
-              <strong id="progressTitle">The Atlas Six</strong>
+              <strong id="progressTitle">Loading…</strong>
             </div>
             <div class="progress-track"><div id="progressBar"></div></div>
-          </div>
-          <section class="feed" id="feed" aria-label="Story feed"></section>
+          </article>
+          <article class="glass-soft summary-card">
+            <span>Database status</span>
+            <strong id="databaseSummary">Seeded and ready</strong>
+          </article>
         </section>
+
+        <section class="feed" id="feed" aria-label="Story feed"></section>
 
         <footer class="bottom-nav glass-soft">
           <button type="button" class="active">🏠<span>Home</span></button>
-          <button type="button">✨<span>Discover</span></button>
-          <button type="button">➕<span>Create</span></button>
-          <button type="button">📚<span>Lists</span></button>
+          <button type="button">🎬<span>Movies</span></button>
+          <button type="button">📖<span>Books</span></button>
+          <button type="button">🔖<span>Saved</span></button>
           <button type="button">👤<span>Profile</span></button>
         </footer>
       </main>
     </div>
+
+    <section id="databaseDrawer" class="database-drawer hidden">
+      <div class="drawer-panel glass">
+        <div class="section-heading">
+          <h2>Full database</h2>
+          <button id="closeDrawerBtn" class="ghost-btn" type="button">Close</button>
+        </div>
+        <div id="databaseList" class="database-list"></div>
+      </div>
+    </section>
 
     <template id="storyCardTemplate">
       <article class="story-card">
@@ -130,7 +232,7 @@
               <div class="poster-art"></div>
             </div>
             <div class="poster-copy">
-              <p class="poster-kicker">Mood match</p>
+              <p class="poster-kicker">Genre</p>
               <strong class="poster-score"></strong>
               <span class="poster-runtime"></span>
             </div>
@@ -149,19 +251,18 @@
                 <button type="button" class="secondary save-toggle"></button>
               </div>
             </div>
-
             <div class="story-actions"></div>
           </div>
         </div>
 
         <footer class="story-footer">
           <div>
-            <span class="footer-label">Best for</span>
+            <span class="footer-label">Mood</span>
             <strong class="footer-vibe"></strong>
           </div>
           <div>
-            <span class="footer-label">Community verdict</span>
-            <strong>Worth the hype</strong>
+            <span class="footer-label">Added by</span>
+            <strong class="footer-owner"></strong>
           </div>
         </footer>
       </article>
