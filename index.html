@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="StoryStream is a TikTok-style discovery app for books and movies."
+    />
+    <title>StoryStream</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar glass">
+        <div>
+          <p class="eyebrow">New generation discovery</p>
+          <h1>StoryStream</h1>
+          <p class="intro">
+            TikTok energy for books and movies: vertical feed, bold cards, hot takes, saves, and instant vibe checks.
+          </p>
+        </div>
+
+        <div class="stats-panel">
+          <div>
+            <strong>12M+</strong>
+            <span>swipes this week</span>
+          </div>
+          <div>
+            <strong>430K</strong>
+            <span>lists created</span>
+          </div>
+          <div>
+            <strong>94%</strong>
+            <span>finish rate</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <p class="eyebrow">Perfect for</p>
+          <ul>
+            <li>Discovering your next obsession fast</li>
+            <li>Mixing BookTok + film community in one feed</li>
+            <li>Saving recs into clean mood-based collections</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="phone-frame glass">
+        <header class="topbar">
+          <div class="brand-dot"></div>
+          <nav id="categoryNav" aria-label="Feed filters"></nav>
+          <button class="profile-btn" type="button">A</button>
+        </header>
+
+        <section class="feed" id="feed" aria-label="Story feed"></section>
+
+        <footer class="bottom-nav glass-soft">
+          <button type="button" class="active">🏠<span>Home</span></button>
+          <button type="button">🔎<span>Search</span></button>
+          <button type="button">➕<span>Create</span></button>
+          <button type="button">📚<span>Lists</span></button>
+          <button type="button">👤<span>Profile</span></button>
+        </footer>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
