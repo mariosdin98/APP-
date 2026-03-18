@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="StoryStream is a TikTok-style discovery app for books and movies with a vertical personalized feed."
+      content="StoryStream is a TikTok-style discovery app for books and movies with a beautiful animated vertical feed."
     />
     <title>StoryStream</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="ambient ambient-c"></div>
+
     <div class="app-shell">
       <aside class="sidebar glass">
         <section>
           <p class="eyebrow">Built for the algorithm era</p>
           <h1>StoryStream</h1>
           <p class="intro">
-            Ένα addictive discovery app για βιβλία και ταινίες με vertical swipe feed, mood filters,
-            social proof και saves που μένουν αποθηκευμένα.
+            Ένα addictive discovery app για βιβλία και ταινίες με vertical swipe feed, cinematic GIF cards,
+            mood filters, social proof και saves που μένουν αποθηκευμένα.
           </p>
         </section>
 
@@ -81,8 +91,10 @@
 
         <section class="feed-wrap">
           <div class="feed-progress glass-soft">
-            <span>Now playing</span>
-            <strong id="progressTitle">The Atlas Six</strong>
+            <div>
+              <span>Now playing</span>
+              <strong id="progressTitle">The Atlas Six</strong>
+            </div>
             <div class="progress-track"><div id="progressBar"></div></div>
           </div>
           <section class="feed" id="feed" aria-label="Story feed"></section>
@@ -100,7 +112,12 @@
 
     <template id="storyCardTemplate">
       <article class="story-card">
-        <div class="overlay"></div>
+        <div class="story-media-wrap">
+          <img class="story-gif" alt="" loading="lazy" />
+          <div class="media-noise"></div>
+          <div class="overlay"></div>
+        </div>
+
         <div class="story-meta">
           <span class="type-pill"></span>
           <span class="match-pill"></span>
@@ -108,7 +125,10 @@
 
         <div class="story-body">
           <div class="poster-panel glass-soft">
-            <div class="poster-art"></div>
+            <div class="poster-art-wrap">
+              <img class="poster-gif" alt="" loading="lazy" />
+              <div class="poster-art"></div>
+            </div>
             <div class="poster-copy">
               <p class="poster-kicker">Mood match</p>
               <strong class="poster-score"></strong>

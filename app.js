@@ -23,6 +23,7 @@ const library = [
     creator: 'Olivie Blake',
     tag: '#DarkAcademia',
     accent: 'linear-gradient(135deg, #8b5cf6 0%, #312e81 55%, #0f172a 100%)',
+    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWQ0YzV5dnVibWRsNWh6YjhsbXBqdW5jbnF2bTZmZnZubG9uN3R0eiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l0HlBO7eyXzSZkJri/giphy.gif',
     blurb: 'A secret society. Dangerous magic. Six brilliant rivals competing for one unforgettable place.',
     chips: ['Morally gray', 'Twisty', 'BookTok favorite'],
     rating: '4.8',
@@ -40,6 +41,7 @@ const library = [
     creator: 'Christopher Nolan',
     tag: '#MindBlown',
     accent: 'linear-gradient(135deg, #0f172a 0%, #1d4ed8 50%, #38bdf8 100%)',
+    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGl6ZnR2dDJ5d2Z6dDhlbW9lbTMwMHYxcnZ2N2h4enNlcHk5ZWRnNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o7btZ3T6y3JTmjg4w/giphy.gif',
     blurb: 'Time bends, gravity whispers, and love stretches across galaxies in this cinematic trip.',
     chips: ['Sci-fi epic', 'Space', 'Emotional'],
     rating: '9.2',
@@ -57,6 +59,7 @@ const library = [
     creator: 'Gabrielle Zevin',
     tag: '#BeautifulWriting',
     accent: 'linear-gradient(135deg, #f97316 0%, #fb7185 45%, #7c3aed 100%)',
+    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2FvMml0NXl2eHcyNXJwYmEzNWprYms1ZXN3c2Q1ejMyYXk2M2ppYyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ICOgUNjpvO0PC/giphy.gif',
     blurb: 'A story about friendship, ambition, game design, and the messy art of building worlds together.',
     chips: ['Character-driven', 'Bittersweet', 'Modern classic'],
     rating: '4.7',
@@ -74,6 +77,7 @@ const library = [
     creator: 'Celine Song',
     tag: '#HeartAche',
     accent: 'linear-gradient(135deg, #111827 0%, #059669 45%, #f59e0b 100%)',
+    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaG9mbW0xeTFvYnh1d3M5a2oxcDJoc2x1Z2M1NDdudWhseDQ3bHRvbiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/26tn33aiTi1jkl6H6/giphy.gif',
     blurb: 'Quiet longing, perfect dialogue, and a story that lingers long after the credits roll.',
     chips: ['Romantic drama', 'A24 vibe', 'Tender'],
     rating: '8.9',
@@ -91,6 +95,7 @@ const library = [
     creator: 'Denis Villeneuve',
     tag: '#DesertPower',
     accent: 'linear-gradient(135deg, #78350f 0%, #ea580c 50%, #f59e0b 100%)',
+    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWl6djd1a3hpZXB4NWcxaGhmbTk2dnd2cXB1d3hnd2ViN3cwNWQ1YiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/11M8MYqPc37F4I/giphy.gif',
     blurb: 'Prophecy, revenge, giant spectacle and enough sand-coded drama for ten timelines.',
     chips: ['Epic', 'Visual feast', 'War drama'],
     rating: '9.0',
@@ -108,6 +113,7 @@ const library = [
     creator: 'Madeline Miller',
     tag: '#MythRetold',
     accent: 'linear-gradient(135deg, #0f172a 0%, #be123c 50%, #f59e0b 100%)',
+    gif: 'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzNxeXI4M3V5dGQyNmkwOHFwdG0xYjNleTVuZG81dW9jZDJjdnJnZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xT0xeJpnrWC4XWblEk/giphy.gif',
     blurb: 'A goddess exiled, a witch becoming herself, and prose that feels expensive in the best way.',
     chips: ['Mythology', 'Lyrical', 'Empowering'],
     rating: '4.9',
@@ -173,7 +179,7 @@ function getFilteredItems() {
       (state.category === 'Saved' && state.saved.has(item.id));
 
     const moodMatch = state.mood === 'All vibes' || item.mood.includes(state.mood);
-    const haystack = `${item.title} ${item.creator} ${item.tag} ${item.chips.join(' ')} ${item.mood.join(' ')}`.toLowerCase();
+    const haystack = `${item.title} ${item.creator} ${item.tag} ${item.chips.join(' ')} ${item.mood.join(' ')} ${item.vibe}`.toLowerCase();
     const queryMatch = haystack.includes(state.query.toLowerCase());
 
     return categoryMatch && moodMatch && queryMatch;
@@ -215,6 +221,18 @@ function createActionButton(icon, label, value, active = false, onClick) {
   return button;
 }
 
+function applyGif(img, url, title) {
+  img.src = url;
+  img.alt = `${title} animated visual`;
+  img.addEventListener(
+    'error',
+    () => {
+      img.style.display = 'none';
+    },
+    { once: true },
+  );
+}
+
 function renderFeed() {
   const items = getFilteredItems();
   elements.feed.innerHTML = '';
@@ -239,9 +257,11 @@ function renderFeed() {
     card.style.background = item.accent;
     card.dataset.id = item.id;
 
+    applyGif(fragment.querySelector('.story-gif'), item.gif, item.title);
+    applyGif(fragment.querySelector('.poster-gif'), item.gif, item.title);
+
     fragment.querySelector('.type-pill').textContent = item.type;
     fragment.querySelector('.match-pill').textContent = `${item.rating} ★ match`;
-    fragment.querySelector('.poster-art').style.background = `${item.accent}, rgba(255,255,255,0.08)`;
     fragment.querySelector('.poster-score').textContent = `${item.rating}/10 audience score`;
     fragment.querySelector('.poster-runtime').textContent = item.length;
     fragment.querySelector('.tag').textContent = item.tag;
