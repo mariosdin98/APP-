@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="StoryStream is a TikTok-style discovery app for books and movies."
+      content="StoryStream is a TikTok-style discovery app for books and movies with a vertical personalized feed."
     />
     <title>StoryStream</title>
     <link rel="stylesheet" href="./styles.css" />
@@ -13,57 +13,139 @@
   <body>
     <div class="app-shell">
       <aside class="sidebar glass">
-        <div>
-          <p class="eyebrow">New generation discovery</p>
+        <section>
+          <p class="eyebrow">Built for the algorithm era</p>
           <h1>StoryStream</h1>
           <p class="intro">
-            TikTok energy for books and movies: vertical feed, bold cards, hot takes, saves, and instant vibe checks.
+            Ένα addictive discovery app για βιβλία και ταινίες με vertical swipe feed, mood filters,
+            social proof και saves που μένουν αποθηκευμένα.
           </p>
-        </div>
+        </section>
 
-        <div class="stats-panel">
+        <section class="sidebar-block spotlight-card">
           <div>
-            <strong>12M+</strong>
-            <span>swipes this week</span>
+            <p class="eyebrow">Tonight's vibe</p>
+            <strong id="spotlightTitle">Cosmic heartbreak</strong>
+            <p id="spotlightCopy">Scroll σε stories που μοιάζουν με late-night obsessions.</p>
+          </div>
+          <button id="randomizeBtn" class="ghost-btn" type="button">Shuffle mood</button>
+        </section>
+
+        <section class="stats-panel" aria-label="StoryStream highlights">
+          <div>
+            <strong id="statSwipes">12M+</strong>
+            <span>weekly swipes</span>
           </div>
           <div>
-            <strong>430K</strong>
+            <strong id="statSaves">430K</strong>
             <span>lists created</span>
           </div>
           <div>
-            <strong>94%</strong>
-            <span>finish rate</span>
+            <strong id="statRate">94%</strong>
+            <span>completion rate</span>
           </div>
-        </div>
+        </section>
 
-        <div class="feature-card">
-          <p class="eyebrow">Perfect for</p>
-          <ul>
-            <li>Discovering your next obsession fast</li>
-            <li>Mixing BookTok + film community in one feed</li>
-            <li>Saving recs into clean mood-based collections</li>
-          </ul>
-        </div>
+        <section class="sidebar-block feature-card">
+          <div class="section-heading">
+            <h2>Quick lists</h2>
+            <span id="savedCountBadge">0 saved</span>
+          </div>
+          <div id="savedPreview" class="saved-preview" aria-live="polite"></div>
+        </section>
       </aside>
 
       <main class="phone-frame glass">
         <header class="topbar">
-          <div class="brand-dot"></div>
-          <nav id="categoryNav" aria-label="Feed filters"></nav>
-          <button class="profile-btn" type="button">A</button>
+          <div class="brand-lockup">
+            <div class="brand-dot"></div>
+            <div>
+              <p>For you</p>
+              <strong id="feedLabel">Trending now</strong>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <label class="searchbar" for="searchInput">
+              <span>🔎</span>
+              <input id="searchInput" type="search" placeholder="Search title, creator, vibe..." />
+            </label>
+            <button class="profile-btn" type="button" aria-label="Open profile">A</button>
+          </div>
         </header>
 
-        <section class="feed" id="feed" aria-label="Story feed"></section>
+        <section class="filter-row" aria-label="Feed filters">
+          <nav id="categoryNav" class="pill-nav" aria-label="Content categories"></nav>
+          <div id="moodFilters" class="mood-filters" aria-label="Mood filters"></div>
+        </section>
+
+        <section class="feed-wrap">
+          <div class="feed-progress glass-soft">
+            <span>Now playing</span>
+            <strong id="progressTitle">The Atlas Six</strong>
+            <div class="progress-track"><div id="progressBar"></div></div>
+          </div>
+          <section class="feed" id="feed" aria-label="Story feed"></section>
+        </section>
 
         <footer class="bottom-nav glass-soft">
           <button type="button" class="active">🏠<span>Home</span></button>
-          <button type="button">🔎<span>Search</span></button>
+          <button type="button">✨<span>Discover</span></button>
           <button type="button">➕<span>Create</span></button>
           <button type="button">📚<span>Lists</span></button>
           <button type="button">👤<span>Profile</span></button>
         </footer>
       </main>
     </div>
+
+    <template id="storyCardTemplate">
+      <article class="story-card">
+        <div class="overlay"></div>
+        <div class="story-meta">
+          <span class="type-pill"></span>
+          <span class="match-pill"></span>
+        </div>
+
+        <div class="story-body">
+          <div class="poster-panel glass-soft">
+            <div class="poster-art"></div>
+            <div class="poster-copy">
+              <p class="poster-kicker">Mood match</p>
+              <strong class="poster-score"></strong>
+              <span class="poster-runtime"></span>
+            </div>
+          </div>
+
+          <div class="story-content">
+            <div class="story-copy">
+              <p class="tag"></p>
+              <h2></h2>
+              <p class="creator"></p>
+              <p class="blurb"></p>
+              <div class="chips"></div>
+              <div class="story-facts"></div>
+              <div class="cta-row">
+                <button type="button" class="primary-cta"></button>
+                <button type="button" class="secondary save-toggle"></button>
+              </div>
+            </div>
+
+            <div class="story-actions"></div>
+          </div>
+        </div>
+
+        <footer class="story-footer">
+          <div>
+            <span class="footer-label">Best for</span>
+            <strong class="footer-vibe"></strong>
+          </div>
+          <div>
+            <span class="footer-label">Community verdict</span>
+            <strong>Worth the hype</strong>
+          </div>
+        </footer>
+      </article>
+    </template>
 
     <script src="./app.js"></script>
   </body>

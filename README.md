@@ -2,13 +2,14 @@
 
 StoryStream is a polished TikTok-inspired discovery app concept for books and movies.
 
-## Highlights
+## What is included
 
-- Vertical snap-scrolling feed for immersive discovery
-- Separate discovery chips for books, movies, trending, and saved content
-- High-contrast glassmorphism UI with bold gradients
-- Quick social actions like like, comment, save, and share
-- Responsive layout that works on desktop and mobile
+- Personalized vertical feed with snap scrolling
+- Separate category filters for books, movies, trending, and saved items
+- Mood filters plus live search for title, creator, and vibe
+- Persistent saved state using `localStorage`
+- Social actions for like, save, and share interactions
+- Responsive glassmorphism UI for desktop and mobile
 
 ## Run locally
 
